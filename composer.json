@@ -1,0 +1,23 @@
+{
+  "name": "donatj/pearman",
+  "description": "Pure PHP Gearman Server",
+  "require": {
+    "donatj/flags": "1.*"
+  },
+  "require-dev": {
+    "donatj/drop": "*",
+    "phpunit/phpunit": "4.*"
+  },
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Jesse Donat",
+      "email": "donatj@gmail.com"
+    }
+  ],
+  "autoload": {
+    "psr-4": {
+      "Pearman\\": "src/"
+    }
+  }
+}
