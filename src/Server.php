@@ -139,16 +139,21 @@ class Server {
 	 * @return string
 	 */
 	public function intToFourByteString( $int ) {
-		//@TODO this is totally wrong and just a mock up
-		return (string)$int;
+		return pack('N', $int);
 	}
 
+	/**
+	 * @param $string
+	 * @return int
+	 */
 	private final function fourByteStringToInt( $string ) {
 		if( strlen($string) != 4 ) {
 			throw new \InvalidArgumentException('String to parse must be 4 bytes exactly');
 		}
 
-		return (ord($string[0]) << 24) + (ord($string[1]) << 16) + (ord($string[2]) << 8) + ord($string[3]);
+		$val = unpack('N', $string);
+
+		return $val[1];
 	}
 
 }
