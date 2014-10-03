@@ -131,6 +131,8 @@ class Server {
 		$final_type   = $this->intToFourByteString($type);
 		$final_length = $this->intToFourByteString(strlen($data));
 
+		echo "Sending: " . var_export($this->ords( $cmd . $final_type . $final_length . $data ), true) . "\n";
+
 		socket_write($socket, $cmd . $final_type . $final_length . $data);
 	}
 
@@ -154,6 +156,22 @@ class Server {
 		$val = unpack('N', $string);
 
 		return $val[1];
+	}
+
+	private function ords( $string ) {
+		$split = str_split($string);
+
+		$output = "";
+		foreach( $split as $ord ) {
+			$var = ord($ord);
+			if($var >= 32) {
+				$output .= $ord;
+			}else{
+				$output .= "\\x" . dechex($var);
+			}
+		}
+
+		return $output;
 	}
 
 }
