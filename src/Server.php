@@ -53,8 +53,11 @@ class Server {
 	protected $cando = [ ];
 
 	function __construct( $port ) {
+		$sock = @socket_create_listen($port);
+		if($sock === false) {
+			throw new \Exception('Failed to open port ' . $port);
+		}
 
-		$sock = socket_create_listen($port);
 		socket_getsockname($sock, $addr, $port);
 		echo "Server Listening on $addr:$port\n";
 
