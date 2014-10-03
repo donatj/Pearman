@@ -82,16 +82,7 @@ class Server {
 				$data = socket_read($currentSocket, $final_size);
 			}
 
-
-			see(
-				var_export($cmd, true),
-				$this->fourByteStringToInt($type),
-//				ord($type[0]) . ' ' . ord($type[1]) . ' ' . ord($type[2]) . ' ' . ord($type[3]),
-				$this->fourByteStringToInt($size),
-//				ord($size[0]) . ' ' . ord($size[1]) . ' ' . ord($size[2]) . ' ' . ord($size[3]),
-				$data
-			);
-
+			echo "Receiving: " . var_export($this->ords( $cmd . $type . $size . $data ), true) . "\n";
 
 			switch( $cmd ) {
 				case self::HEADER_REQUEST:
@@ -101,9 +92,9 @@ class Server {
 						case self::COMMAND_CAN_DO:
 							break;
 						case self::COMMAND_OPTION_REQ:
-							sleep(5);
+//							sleep(5);
 
-                            //Lie to it
+							//Lie to it
 							$this->sendPacket($currentSocket, self::HEADER_RESPONSE, self::COMMAND_OPTION_RES, $data);
 
 							break;
